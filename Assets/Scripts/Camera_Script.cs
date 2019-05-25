@@ -9,6 +9,16 @@ public class Camera_Script : MonoBehaviour {
 	private GameObject obj;
 	private Vector3 position;
 	private float turnPosition;
+
+
+	public GameObject GetObj
+	{
+		get
+		{
+			return obj;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		obj=new GameObject("CameraReference");

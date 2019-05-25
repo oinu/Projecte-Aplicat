@@ -9,38 +9,25 @@ public class Character_Script : MonoBehaviour {
 	private Vector3 position,direction;
 	private bool inCollision,inAir,swipeForward;
 	private GameObject collisionObject,collisionInstance;
+	private Transform objTrans;
 	// Use this for initialization
 	void Start () {
 		position= this.transform.position;
 		collisionInstance= new GameObject();
 		collisionInstance.transform.position = new Vector3(0f,10000f,0f);
 		swipeForward=false;
+		objTrans= currenCamera.GetComponent<Camera_Script>().GetObj.transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		#region Movement
 		position=this.transform.position;
-		if(Input.GetAxis("Horizontal")>0)
-		{
-			if(inCollision && this.transform.position.x>collisionObject.transform.position.x)inCollision=false;
-			position.x+=velocity;
-		}
-		else if(Input.GetAxis("Horizontal")<0)
-		{
-			if(inCollision && this.transform.position.x<collisionObject.transform.position.x)inCollision=false;
-			position.x-=velocity;
-		}
 
 		if(Input.GetAxis("Vertical")>0)
 		{
 			if(inCollision && this.transform.position.z>collisionObject.transform.position.z)inCollision=false;
-			position.z+=velocity;
-		}
-		else if (Input.GetAxis("Vertical")<0)
-		{
-			if(inCollision && this.transform.position.z<collisionObject.transform.position.z)inCollision=false;
-			position.z-=velocity;
+			position+=objTrans.forward.normalized*velocity;
 		}
 
 		if(!inCollision && !Vector3.Equals(this.transform.position,position))
