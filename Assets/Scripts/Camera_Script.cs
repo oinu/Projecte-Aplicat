@@ -62,7 +62,7 @@ public class Camera_Script : MonoBehaviour {
 			{
 				if(hit.transform.tag=="Transportar")
 				{
-					character.GetComponent<Character_Script>().SetTeleportGoal(hit.point);
+					character.GetComponent<Character_Script>().SetTeleportGoal(hit.transform.position);
 					Destroy(hit.transform.gameObject);
 				}
 			}
