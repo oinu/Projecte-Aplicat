@@ -71,7 +71,7 @@ public class Camera_Script : MonoBehaviour {
 						collisionObject= hit.transform.GetChild(0).gameObject;
 						collisionObject.SetActive(true);
 					}
-					if(Input.GetMouseButtonDown(0))
+					if(Input.GetKeyDown(KeyCode.LeftAlt))
 					{
 						character.GetComponent<Character_Script>().SetTeleportGoal(hit.transform.position);
 						Destroy(hit.transform.gameObject);
