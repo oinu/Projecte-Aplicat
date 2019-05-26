@@ -6,7 +6,7 @@ public class Camera_Script : MonoBehaviour {
 
 	public GameObject character;
 	private float angleVelocity;
-	private GameObject obj,rayObject;
+	private GameObject obj,rayObject,collisionObject;
 	private Vector3 position;
 	private float turnPosition;
 
@@ -55,18 +55,39 @@ public class Camera_Script : MonoBehaviour {
 		character.transform.position.y+character.transform.localScale.y+0.5f,character.transform.position.z);
 		rayObject.transform.forward= obj.transform.forward;
 
-		if(Input.GetMouseButtonDown(0))
-		{
-			RaycastHit hit;
-			if(Physics.Raycast(rayObject.transform.position,rayObject.transform.forward,out hit))
+		RaycastHit hit;
+		if(Physics.Raycast(rayObject.transform.position,rayObject.transform.forward,out hit))
 			{
 				if(hit.transform.tag=="Transportar")
 				{
-					character.GetComponent<Character_Script>().SetTeleportGoal(hit.transform.position);
-					Destroy(hit.transform.gameObject);
+					if(collisionObject==null)
+					{
+						collisionObject= hit.transform.GetChild(0).gameObject;
+						collisionObject.SetActive(true);
+					}
+					else if(!GameObject.Equals(collisionObject,hit.transform.GetChild(0).gameObject))
+					{
+						collisionObject.SetActive(false);
+						collisionObject= hit.transform.GetChild(0).gameObject;
+						collisionObject.SetActive(true);
+					}
+					if(Input.GetMouseButtonDown(0))
+					{
+						character.GetComponent<Character_Script>().SetTeleportGoal(hit.transform.position);
+						Destroy(hit.transform.gameObject);
+					}
+				}
+				else
+				{
+					if(collisionObject!=null)
+					{
+						collisionObject.SetActive(false);
+						collisionObject=null;
+					}
 				}
 			}
-		}
+
+		
 
 	}
 }

@@ -56,6 +56,11 @@ public class Character_Script : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter(Collision other) {
+		if(other.gameObject.tag=="Finish")
+		{
+			Application.Quit();
+		}
+		
 		if(other.gameObject.tag!="Terrain")
 		{
 			inCollision=true;
