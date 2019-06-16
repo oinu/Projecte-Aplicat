@@ -43,7 +43,7 @@ public class Camera_Script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		angleVelocity= Input.GetAxis("Mouse X")*10;
+		angleVelocity= Input.GetAxis("Mouse X")*10 + Input.GetAxis("Camera Joystick");
 		if(angleVelocity!=0)
 		{
 			obj.transform.Rotate(new Vector3(0,angleVelocity,0),Space.Self);
@@ -71,10 +71,11 @@ public class Camera_Script : MonoBehaviour {
 						collisionObject= hit.transform.GetChild(0).gameObject;
 						collisionObject.SetActive(true);
 					}
-					if(Input.GetKeyDown(KeyCode.LeftAlt))
+					if(Input.GetAxis("Teleport")!=0)
 					{
 						character.GetComponent<Character_Script>().SetTeleportGoal(hit.transform.position);
-						Destroy(hit.transform.gameObject);
+						//Destroy(hit.transform.gameObject);
+						hit.transform.gameObject.SetActive(false);
 					}
 				}
 				else

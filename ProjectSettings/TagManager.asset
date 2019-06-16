@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Terrain
   - Transportar
+  - Sea
   layers:
   - Default
   - TransparentFX

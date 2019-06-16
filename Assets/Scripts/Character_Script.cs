@@ -6,7 +6,7 @@ public class Character_Script : MonoBehaviour {
 
 	public GameObject currenCamera;
 	public float velocity,jumpForce;
-	private Vector3 position,direction;
+	private Vector3 position,direction,respawnPosition;
 	private bool inCollision,inAir,teleport;
 	private GameObject collisionObject,collisionInstance;
 	private Transform objTrans;
@@ -17,10 +17,13 @@ public class Character_Script : MonoBehaviour {
 		collisionInstance.transform.position = new Vector3(0f,10000f,0f);
 		teleport=false;
 		objTrans= currenCamera.GetComponent<Camera_Script>().GetObj.transform;
+		respawnPosition= new Vector3(-52f,0.85f,23.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetAxis("Cancel")!=0)Application.Quit();
+		
 		#region Movement
 		if(!teleport)
 		{
@@ -59,6 +62,10 @@ public class Character_Script : MonoBehaviour {
 		if(other.gameObject.tag=="Finish")
 		{
 			Application.Quit();
+		}
+		else if(other.gameObject.tag=="Sea")
+		{
+			this.transform.position=respawnPosition;
 		}
 		
 		if(other.gameObject.tag!="Terrain")
